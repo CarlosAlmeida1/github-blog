@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 interface ExternalLinkProps {
   variant?: 'inconLeft';
@@ -28,7 +28,7 @@ export const ExternalLinkContainer = styled.a<ExternalLinkProps>`
   }
 
   ${({ variant }) =>
-    variant === 'inconLeft' &&
+    variant === 'iconLeft' &&
     css`
       flex-direction: row-reverse;
     `}
