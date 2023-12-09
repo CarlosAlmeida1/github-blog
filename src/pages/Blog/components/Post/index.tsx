@@ -1,18 +1,21 @@
+import { formattedDate } from '@/utils/formattedDate';
+import { IPost } from '../..';
 import { PostContainer } from './styles';
 
-export function Post() {
+interface PostProps {
+  post: IPost;
+}
+
+export function Post({ post }: PostProps) {
+  const postDate = formattedDate(post.created_at);
+
   return (
-    <PostContainer to='/post'>
+    <PostContainer to={`/post/${post.number}`}>
       <div>
-        <strong>JavaScript data types and data structures</strong>
-        <span>Há 1 dia</span>
+        <strong>{post.title}</strong>
+        <span>{postDate}</span>
       </div>
-      <p>
-        Programming languages all have built-in data structures, but these often
-        differ from one language to another. This article attempts to list the
-        built-in data structures available in JavaScript and what properties
-        they have. These can be used to build other data...
-      </p>
+      <p>{post.body}</p>
     </PostContainer>
   );
 }
