@@ -19,7 +19,7 @@ export const PostHeaderContainer = styled.section`
   }
 
   h1 {
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-weight: 700;
     line-height: 130%;
     color: ${(props) => props.theme['base-title']};

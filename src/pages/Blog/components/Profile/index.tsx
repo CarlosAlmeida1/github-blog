@@ -1,19 +1,46 @@
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
-import { ProfileContainer, ProfileDetails, ProfileImage } from './styles';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBuilding } from '@fortawesome/free-solid-svg-icons';
-import { faUserGroup } from '@fortawesome/free-solid-svg-icons/faUserGroup';
+import { faBuilding, faUserGroup } from '@fortawesome/free-solid-svg-icons';
 import { ExternalLink } from '@/components/ExternalLink';
+import { useCallback, useEffect, useState } from 'react';
+import { api } from '@/api/axios';
+import { ProfileContainer, ProfileDetails, ProfileImage } from './styles';
+
+const username = import.meta.env.VITE_GITHUB_USERNAME;
+
+interface ProfileData {
+  name: string;
+  bio: string;
+  avatar_url: string;
+  followers: number;
+  company?: string;
+  login: string;
+}
 
 export function Profile() {
+  const [profileData, setProfileData] = useState({} as ProfileData);
+
+  const getProfileData = useCallback(async () => {
+    try {
+      const response = await api.get(`/users/${username}`);
+      setProfileData(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  }, [profileData]);
+
+  useEffect(() => {
+    getProfileData();
+  }, []);
+
   return (
     <ProfileContainer>
       <>
-        <ProfileImage src='https://github.com/CarlosAlmeida1.png' />
+        <ProfileImage src={profileData.avatar_url} />
 
         <ProfileDetails>
           <header>
-            <h1>Carlos Almeida</h1>
+            <h1>{profileData.name}</h1>
 
             <ExternalLink
               text='GITHUB'
@@ -22,24 +49,20 @@ export function Profile() {
             />
           </header>
 
-          <p>
-            Tristique volutpat pulvinar vel massa, pellentesque egestas. Eu
-            viverra massa quam dignissim aenean malesuada suscipit. Nunc,
-            volutpat pulvinar vel mass.
-          </p>
+          <p>{profileData.bio}</p>
 
           <ul>
             <li>
               <FontAwesomeIcon icon={faGithub} />
-              Carlos Almeida
+              {profileData.login}
             </li>
             <li>
               <FontAwesomeIcon icon={faBuilding} />
-              Instituto Federal do Paraná
+              {profileData.company}
             </li>
             <li>
               <FontAwesomeIcon icon={faUserGroup} />
-              98 seguidores
+              {profileData.followers} seguidores
             </li>
           </ul>
         </ProfileDetails>

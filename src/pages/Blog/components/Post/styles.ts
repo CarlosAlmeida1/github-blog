@@ -22,12 +22,12 @@ export const PostContainer = styled(Link)`
 
     strong {
       flex: 1;
-      font-size: 1.25rem;
+      font-size: 1.23rem;
       color: ${(props) => props.theme['base-title']};
       overflow: hidden;
       text-overflow: ellipsis;
       -webkit-box-orient: vertical;
-      -webkit-line-clamp: 2;
+      -webkit-line-clamp: 3;
     }
 
     span {
@@ -42,7 +42,7 @@ export const PostContainer = styled(Link)`
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 4;
+    -webkit-line-clamp: 3;
   }
 
   color: ${(props) => props.theme['base-text']};

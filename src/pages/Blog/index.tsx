@@ -27,9 +27,9 @@ export function Blog() {
     async (query: string = '') => {
       try {
         const response = await api.get(
-          `/search/issues?q=${query}%20label:published%20repo:${username}/${repoName}`
+          `https://api.github.com/repos/${username}/${repoName}/issues?q=${query}%20label:published`
         );
-        setPosts(response.data.items);
+        setPosts(response.data);
       } catch {
         console.log('error');
       }
@@ -44,7 +44,7 @@ export function Blog() {
   return (
     <>
       <Profile />
-      <SearchInput getPosts={getPosts} />
+      <SearchInput postsLength={posts.length} getPosts={getPosts} />
       <PostListContainer>
         {posts.map((post) => (
           <Post key={post.number} post={post} />

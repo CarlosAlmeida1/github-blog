@@ -5,7 +5,14 @@ import { faChevronLeft, faComment } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import { faCalendar } from '@fortawesome/free-solid-svg-icons/faCalendar';
-export function PostHeader() {
+import { IPost } from '@/pages/Blog';
+import { formattedDate } from '@/utils/formattedDate';
+
+interface IPostHeaderProps {
+  postData: IPost;
+}
+
+export function PostHeader({ postData }: IPostHeaderProps) {
   const navigate = useNavigate();
 
   function backToBlog() {
@@ -26,19 +33,20 @@ export function PostHeader() {
         <ExternalLink text='Ver no Github' target='_blank' />
       </header>
 
-      <h1>JavaScript data types and data structures</h1>
+      <h1>{postData.title}</h1>
 
       <ul>
         <li>
           <FontAwesomeIcon icon={faGithub} />
-          Carlos Almeida
+          {postData.user?.login}
         </li>
         <li>
           <FontAwesomeIcon icon={faCalendar} />
-          Há 1 dia
+          {postData.created_at && formattedDate(postData.created_at)}
         </li>
         <li>
-          <FontAwesomeIcon icon={faComment} />8 Comentários
+          <FontAwesomeIcon icon={faComment} />
+          {postData.comments} Comentário(s)
         </li>
       </ul>
     </PostHeaderContainer>
