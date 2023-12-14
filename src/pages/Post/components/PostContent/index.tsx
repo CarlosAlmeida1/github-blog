@@ -20,7 +20,7 @@ export function PostContent({ content }: IPostContentProps) {
               return !inline && match ? (
                 <SyntaxHighlighter
                   children={String(children).replace(/\n$/, '')}
-                  style={dracula} // Use imported Dracula style
+                  style={dracula}
                   language={match[1]}
                   PreTag='div'
                   {...props}
